@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Ascendant · 物理法则之下：科技死斗</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#06060f;color:#d0d0e0;font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+  h1,h2,h3{font-family:'Orbitron',monospace}
+
+  .hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#0a0a2e 0%,#06060f 70%)}
+  .hero::before{content:'';position:absolute;inset:-50%;background:radial-gradient(circle at 30% 50%,rgba(100,60,255,0.08),transparent 50%),radial-gradient(circle at 70% 30%,rgba(255,60,100,0.06),transparent 50%),radial-gradient(circle at 50% 80%,rgba(60,200,255,0.05),transparent 50%);animation:drift 20s ease-in-out infinite alternate}
+  @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(2%,-2%) scale(1.05)}}
+
+  .hero-content{position:relative;z-index:1}
+  .badge{display:inline-block;padding:6px 20px;border-radius:20px;border:1px solid rgba(150,120,255,0.3);background:rgba(100,60,200,0.1);color:#b0a0e0;font-size:14px;letter-spacing:2px;margin-bottom:24px;backdrop-filter:blur(8px)}
+  .title{font-size:clamp(36px,6vw,72px);font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,#a0a0ff,#ff80b0,#a0a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s ease-in-out infinite;background-size:200% 200%}
+  @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .subtitle{font-size:clamp(18px,3vw,28px);color:#8080b0;margin:16px 0 32px;font-weight:400}
+  .cta{display:inline-flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn{padding:14px 36px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.3s;border:none}
+  .btn-primary{background:linear-gradient(135deg,#6040d0,#8050f0);color:#fff;box-shadow:0 4px 24px rgba(100,60,255,0.3)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(100,60,255,0.5)}
+  .btn-outline{background:transparent;border:1px solid rgba(150,120,255,0.4);color:#c0b0f0}
+  .btn-outline:hover{background:rgba(100,60,255,0.1)}
+
+  .scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;color:#6060a0;font-size:24px}
+  @keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+  .section{padding:80px 24px;max-width:1100px;margin:0 auto}
+  .section h2{font-size:clamp(24px,4vw,40px);text-align:center;margin-bottom:16px;background:linear-gradient(135deg,#c0c0ff,#e0a0d0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .section p.lead{text-align:center;color:#8080b0;font-size:18px;max-width:700px;margin:0 auto 48px;line-height:1.6}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .card{background:rgba(15,15,40,0.8);border:1px solid rgba(100,80,180,0.15);border-radius:16px;padding:28px 22px;transition:all 0.3s;backdrop-filter:blur(12px)}
+  .card:hover{transform:translateY(-4px);border-color:rgba(120,100,220,0.4);box-shadow:0 8px 32px rgba(80,40,200,0.1)}
+  .card-icon{font-size:36px;margin-bottom:14px}
+  .card h3{font-size:18px;margin-bottom:10px;color:#c0c0ff}
+  .card p{font-size:14px;color:#8080b0;line-height:1.6}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .feature{background:rgba(12,12,35,0.6);border:1px solid rgba(80,60,160,0.12);border-radius:14px;padding:32px 24px;text-align:center}
+  .feature .num{font-family:'Orbitron',monospace;font-size:48px;font-weight:900;background:linear-gradient(135deg,#8060f0,#f060a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:8px}
+  .feature .label{font-size:14px;color:#7070a0;text-transform:uppercase;letter-spacing:2px}
+
+  .tech-tree{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .tech-tag{font-family:'Orbitron',monospace;padding:8px 16px;border-radius:8px;font-size:13px;color:#c0b0f0;background:rgba(60,40,120,0.3);border:1px solid rgba(100,60,200,0.2)}
+
+  .timeline{position:relative;padding-left:40px;border-left:2px solid rgba(100,60,220,0.15)}
+  .timeline-item{position:relative;margin-bottom:32px;padding-left:20px}
+  .timeline-item::before{content:'';position:absolute;left:-46px;top:4px;width:12px;height:12px;border-radius:50%;background:#6040d0;border:2px solid #1a1a40}
+  .timeline-item .phase{font-size:13px;color:#8060e0;font-weight:700;letter-spacing:2px}
+  .timeline-item .desc{font-size:15px;color:#9090b0;margin-top:4px}
+
+  .footer{text-align:center;padding:60px 24px;color:#404060;font-size:13px;border-top:1px solid rgba(60,40,120,0.1)}
+
+  .pulse{animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">PHYSICS ASCENDANT v0.1.0</div>
+    <h1 class="title">物理法则之下</h1>
+    <p class="subtitle">科技死斗 · 粒子物理桌面卡牌对战</p>
+    <div class="cta">
+    </div>
+  </div>
+  <div class="scroll-hint">↓</div>
+</section>
+
+<section class="section">
+  <h2>🎮 游戏概述</h2>
+  <p class="lead">以粒子物理为背景的数字桌面卡牌游戏。操控夸克、电子和反物质粒子，升级六级科技树，掌握弦论终极之力。</p>
+  <div class="feature-grid">
+    <div class="feature"><span class="num">46</span><span class="label">种卡牌</span></div>
+    <div class="feature"><span class="num">132</span><span class="label">张实例</span></div>
+    <div class="feature"><span class="num">32</span><span class="label">种效果类型</span></div>
+    <div class="feature"><span class="num">6</span><span class="label">级科技树</span></div>
+    <div class="feature"><span class="num">2-4</span><span class="label">人对战</span></div>
+    <div class="feature"><span class="num">100%</span><span class="label">效果实现率</span></div>
+  </div>
+</section>
+
+<section class="section" style="background:rgba(10,10,30,0.5)">
+  <h2>⚛️ 核心机制</h2>
+  <p class="lead">建立在真实物理概念之上的策略博弈系统</p>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🧪</div>
+      <h3>粒子实验场</h3>
+      <p>每位玩家拥有 3×3 实验场网格，部署夸克(Q)、电子(E)、质子(P)及反粒子。通过位移、合并、湮灭操作构建粒子构型。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎲</div>
+      <h3>宇宙骰子</h3>
+      <p>每回合投掷宇宙骰子触发宏观物理事件：光速变化、量子涨落、宇宙膨胀、强相互作用、弱衰变、暗能量爆发。支持 MOD 自定义事件。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔥</div>
+      <h3>熵值系统</h3>
+      <p>每次操作产生熵值。熵值达到上限出局。护盾、熵减机、热传导等提供风险管理维度。虚空零点能突破能量上限。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌳</div>
+      <h3>六级科技树</h3>
+      <p>经典力学 → 电磁统一 → 热力学统计 → 量子力学 → 广义相对论 → 弦论终极。每级解锁 6 张科技卡牌，共 36 种。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>启发式 AI</h3>
+      <p>内置 AI 对手支持三种难度。AI 基于熵值、粒子数量、手牌优势等指标进行多维度策略评估。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <h3>MOD 扩展系统</h3>
+      <p>MC 风格：将 .json 文件放入 mods/ 文件夹即可自动发现。支持自定义卡牌、宇宙事件，32 种内置效果类型自由组合。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🔬 科技树全览</h2>
+  <p class="lead">六级科技，每级 6 张卡牌</p>
+  <div style="display:flex;flex-direction:column;gap:24px;max-width:800px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'Orbitron',monospace;color:#4caf50;font-size:32px;min-width:60px">Lv.1</span>
+      <div style="flex:1;background:rgba(76,175,80,0.06);border:1px solid rgba(76,175,80,0.2);border-radius:12px;padding:16px">
+        <h3 style="color:#4caf50;margin-bottom:8px">经典力学</h3>
+        <div class="tech-tree"><span class="tech-tag">引力聚合</span><span class="tech-tag">动量守恒</span><span class="tech-tag">杠杆原理</span><span class="tech-tag">摩擦力矩</span><span class="tech-tag">自由落体</span><span class="tech-tag">碰撞恢复</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'Orbitron',monospace;color:#2196f3;font-size:32px;min-width:60px">Lv.2</span>
+      <div style="flex:1;background:rgba(33,150,243,0.06);border:1px solid rgba(33,150,243,0.2);border-radius:12px;padding:16px">
+        <h3 style="color:#2196f3;margin-bottom:8px">电磁统一</h3>
+        <div class="tech-tree"><span class="tech-tag">法拉第护盾</span><span class="tech-tag">库仑斥力</span><span class="tech-tag">电磁感应</span><span class="tech-tag">磁感线闭合</span><span class="tech-tag">静电吸附</span><span class="tech-tag">电流冲击</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'Orbitron',monospace;color:#9c27b0;font-size:32px;min-width:60px">Lv.3</span>
+      <div style="flex:1;background:rgba(156,39,176,0.06);border:1px solid rgba(156,39,176,0.2);border-radius:12px;padding:16px">
+        <h3 style="color:#9c27b0;margin-bottom:8px">热力学统计</h3>
+        <div class="tech-tree"><span class="tech-tag">麦克斯韦妖</span><span class="tech-tag">布朗运动</span><span class="tech-tag">热传导</span><span class="tech-tag">绝热压缩</span><span class="tech-tag">熵减机</span><span class="tech-tag">相变临界</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'Orbitron',monospace;color:#ffd700;font-size:32px;min-width:60px">Lv.4</span>
+      <div style="flex:1;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:16px">
+        <h3 style="color:#ffd700;margin-bottom:8px">量子力学</h3>
+        <div class="tech-tree"><span class="tech-tag">观测坍缩</span><span class="tech-tag">量子隧穿</span><span class="tech-tag">叠加态</span><span class="tech-tag">纠缠传输</span><span class="tech-tag">波粒二象性</span><span class="tech-tag">不确定性</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'Orbitron',monospace;color:#f44336;font-size:32px;min-width:60px">Lv.5</span>
+      <div style="flex:1;background:rgba(244,67,54,0.06);border:1px solid rgba(244,67,54,0.2);border-radius:12px;padding:16px">
+        <h3 style="color:#f44336;margin-bottom:8px">广义相对论</h3>
+        <div class="tech-tree"><span class="tech-tag">时空弯曲</span><span class="tech-tag">引力透镜</span><span class="tech-tag">时间膨胀</span><span class="tech-tag">虫洞连接</span><span class="tech-tag">奇点坍缩</span><span class="tech-tag">引力波</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'Orbitron',monospace;min-width:60px;font-size:28px;background:linear-gradient(135deg,#f44336,#ff9800,#ffeb3b,#4caf50,#2196f3,#9c27b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Lv.6</span>
+      <div style="flex:1;background:linear-gradient(135deg,rgba(244,67,54,0.04),rgba(255,152,0,0.04),rgba(255,235,59,0.04),rgba(76,175,80,0.04),rgba(33,150,243,0.04),rgba(156,39,176,0.04));border:1px solid rgba(200,150,255,0.15);border-radius:12px;padding:16px">
+        <h3 style="background:linear-gradient(90deg,#f44336,#ff9800,#ffeb3b,#4caf50,#2196f3,#9c27b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px">弦论终极</h3>
+        <div class="tech-tree"><span class="tech-tag">维度打击</span><span class="tech-tag">膜宇宙碰撞</span><span class="tech-tag">超弦共振</span><span class="tech-tag">卡拉比-丘流形</span><span class="tech-tag">多重宇宙分裂</span><span class="tech-tag">大统一理论</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:rgba(10,10,30,0.5)">
+  <h2>🖥️ 技术架构</h2>
+  <p class="lead">全栈 TypeScript，现代化工程体系</p>
+  <div class="cards">
+    <div class="card"><div class="card-icon">⚙️</div><h3>引擎层</h3><p>TypeScript 核心引擎 · 原子指令效果系统 · 规则验证 · AI 决策树 · 62 个单元测试全通过</p></div>
+    <div class="card"><div class="card-icon">🖼️</div><h3>客户端</h3><p>React 18 + Vite 5 · Canvas 2D 棋盘渲染 · 双主题 · 卡牌百科 · 科技树面板</p></div>
+    <div class="card"><div class="card-icon">🌐</div><h3>联机层</h3><p>WebSocket 局域网 · Cloudflare Durable Objects 远程中继 · 统一消息协议</p></div>
+    <div class="card"><div class="card-icon">🖥️</div><h3>桌面端</h3><p>Electron 28 打包 · electron-builder NSIS 安装器 · 离线可用</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🗺️ 开发路线</h2>
+  <div class="timeline" style="max-width:600px;margin:0 auto">
+    <div class="timeline-item"><div class="phase">阶段 1 ✓</div><div class="desc">核心引擎 · 96 张卡牌 · 效果系统 · 回合管理 · AI 对战</div></div>
+    <div class="timeline-item"><div class="phase">阶段 2-5 ✓</div><div class="desc">React UI · Canvas 渲染 · 局域网联机 · 远程中继</div></div>
+    <div class="timeline-item"><div class="phase">阶段 7 ✓</div><div class="desc">DLC API · MOD 系统 · 注册表架构 · 效果集成优化</div></div>
+    <div class="timeline-item"><div class="phase">阶段 8 ✓</div><div class="desc">效果全实现 (32/32) · MOD 导入 · MC 风格自动发现</div></div>
+    <div class="timeline-item"><div class="phase">阶段 9</div><div class="desc">Electron 桌面打包 · 美术资源 · CI/CD</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Physics Ascendant · 物理法则之下：科技死斗 · Open Source · Built with React + Electron + TypeScript</p>
+  <p style="margin-top:8px">© 2026 Physics Ascendant Team</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,944 @@
+/* ============================================================
+   全局样式
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================================================
+   CSS 颜色变量（暗色=默认，浅色覆盖见底部）
+   ================================================ */
+:root {
+  --bg-page: #0f0f1a;
+  --bg-panel: #1a1a30;
+  --bg-panel2: #111122;
+  --bg-panel3: #0f0f1a;
+  --bg-button: #0f0f1a;
+  --bg-selected: #303060;
+  --bg-hover: #202040;
+  --bg-canvas: #0a0a18;
+  --border-panel: #303050;
+  --border-active: #8080ff;
+  --border-accent: #6040a0;
+  --text-primary: #c0c0ff;
+  --text-sub: #8080c0;
+  --text-muted: #606080;
+  --text-dim: #505070;
+  --text-accent: #c080ff;
+  --text-gold: #e0c080;
+  --color-q: #e74c3c;
+  --color-e: #3498db;
+  --gradient-bg: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 50%, #0f0f1a 100%);
+}
+
+body.theme-light {
+  --bg-page: #f0f2f5;
+  --bg-panel: #ffffff;
+  --bg-panel2: #f5f6fa;
+  --bg-panel3: #ebedf0;
+  --bg-button: #e8e8e8;
+  --bg-selected: #d0d0ff;
+  --bg-hover: #e8e8ff;
+  --bg-canvas: #e8ecf0;
+  --border-panel: #d0d5e0;
+  --border-active: #6060c0;
+  --border-accent: #8060c0;
+  --text-primary: #222;
+  --text-sub: #444;
+  --text-muted: #777;
+  --text-dim: #999;
+  --text-accent: #6040a0;
+  --text-gold: #806000;
+  --gradient-bg: linear-gradient(135deg, #f0f2f5, #e0e4e8, #f0f2f5);
+}
+
+body {
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-page);
+  color: #e0e0e0;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#root {
+  height: 100vh;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+}
+
+/* 菜单 */
+.menu-screen {
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-bg);
+}
+
+.menu-container {
+  text-align: center;
+  padding: 40px;
+  max-width: 500px;
+}
+
+.menu-title {
+  font-size: 42px;
+  color: var(--text-gold);
+  text-shadow: 0 0 20px rgba(224, 192, 128, 0.5);
+}
+
+.menu-subtitle {
+  font-size: 24px;
+  color: var(--text-sub);
+  margin-bottom: 8px;
+}
+
+.menu-desc {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.menu-form {
+  text-align: left;
+  background: var(--bg-panel);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-panel);
+}
+
+.menu-form label {
+  display: block;
+  margin: 12px 0 6px;
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+.menu-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-page);
+  border: 1px solid #404060;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 16px;
+}
+
+.menu-options {
+  display: flex;
+  gap: 8px;
+}
+
+.menu-option {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg-page);
+  border: 1px solid #404060;
+  border-radius: 8px;
+  color: var(--text-sub);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.menu-option:hover {
+  border-color: #8080c0;
+}
+
+.menu-option.selected {
+  background: var(--bg-selected);
+  border-color: var(--border-active);
+  color: #c0c0ff;
+}
+
+.menu-start-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #4060c0, #6040a0);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu-start-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(64, 96, 192, 0.4);
+}
+
+/* 游戏主界面 */
+.game-screen {
+  flex-direction: column;
+}
+
+/* 回合信息栏 */
+.turn-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-panel);
+  font-size: 14px;
+}
+
+.turn-number {
+  font-weight: bold;
+  color: var(--text-gold);
+  font-size: 16px;
+}
+
+.turn-phase {
+  padding: 4px 10px;
+  background: var(--bg-selected);
+  border-radius: 6px;
+  color: #c0c0ff;
+}
+
+.turn-player {
+  flex: 1;
+  color: var(--text-sub);
+}
+
+.turn-player strong {
+  color: #e0e0e0;
+}
+
+.turn-event {
+  padding: 4px 10px;
+  background: #402040;
+  border-radius: 6px;
+  color: #c080c0;
+  font-size: 13px;
+  cursor: help;
+}
+
+/* 主内容区 */
+.game-main {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* 侧边栏 */
+.game-sidebar {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.game-sidebar-right {
+  width: 260px;
+  overflow-y: auto;
+}
+
+/* 中央 */
+.game-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* 棋盘 */
+.game-board {
+  text-align: center;
+}
+
+.board-label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+/* 资源面板 */
+.resource-panel {
+  background: var(--bg-panel);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-panel);
+  width: 100%;
+  max-width: 360px;
+}
+
+.resource-panel.player {
+  border-color: #4060a0;
+}
+
+.resource-name {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #c0c0ff;
+}
+
+.resource-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  font-size: 13px;
+}
+
+.resource-label {
+  width: 70px;
+  color: var(--text-sub);
+  flex-shrink: 0;
+}
+
+.resource-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--bg-page);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.resource-bar.small {
+  height: 6px;
+}
+
+.resource-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+
+.resource-bar-fill.energy {
+  background: linear-gradient(90deg, #3498db, #1abc9c);
+}
+
+.resource-bar-fill.entropy.safe {
+  background: #2ecc71;
+}
+
+.resource-bar-fill.entropy.warning {
+  background: #f39c12;
+}
+
+.resource-bar-fill.entropy.danger {
+  background: #e74c3c;
+}
+
+.resource-bar-fill.void.safe {
+  background: #606080;
+}
+
+.resource-bar-fill.void.warning {
+  background: #9b59b6;
+}
+
+.resource-bar-fill.void.danger {
+  background: #e74c3c;
+}
+
+.resource-value {
+  width: 40px;
+  text-align: right;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.resource-value.danger { color: #e74c3c; }
+.resource-value.warning { color: #f39c12; }
+.resource-value.safe { color: #2ecc71; }
+.resource-value.shield { color: #3498db; }
+
+/* 对手卡片 */
+.opponent-card {
+  background: var(--bg-panel);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-panel);
+  font-size: 12px;
+}
+
+.opponent-card.dead {
+  opacity: 0.4;
+}
+
+.opponent-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.opponent-avatar { font-size: 18px; }
+.opponent-name { font-weight: bold; color: #c0c0ff; }
+.opponent-dead { color: #e74c3c; font-size: 16px; }
+
+/* 迷你棋盘 */
+.opponent-mini-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 6px;
+  padding: 4px;
+  background: var(--bg-page);
+  border-radius: 4px;
+}
+
+.mini-row { display: flex; gap: 1px; }
+
+.mini-cell {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-panel);
+  border-radius: 2px;
+  font-size: 10px;
+  color: var(--text-sub);
+}
+
+.mini-cell.has-particle {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.opponent-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.opp-stat {
+  display: flex;
+  gap: 10px;
+  color: var(--text-sub);
+}
+
+/* 操作面板 */
+.action-panel {
+  background: var(--bg-panel);
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-panel);
+}
+
+.action-phase {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text-gold);
+  margin-bottom: 4px;
+}
+
+.action-message {
+  color: var(--text-sub);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.card-select-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.card-select-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.card-select-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: var(--bg-page);
+  border: 1px solid var(--border-panel);
+  border-radius: 6px;
+  margin: 3px 0;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.card-select-item:hover {
+  border-color: #6060a0;
+}
+
+.card-select-item.selected {
+  border-color: var(--border-active);
+  background: var(--bg-hover);
+}
+
+.card-select-name { color: #c0c0ff; }
+.card-select-cost { color: #e0c080; }
+
+.card-params {
+  margin: 8px 0;
+  padding: 8px;
+  background: var(--bg-page);
+  border-radius: 6px;
+}
+
+.params-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.params-row {
+  display: flex;
+  gap: 6px;
+}
+
+.param-select {
+  flex: 1;
+  padding: 6px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  border-radius: 4px;
+  color: #c0c0ff;
+  font-size: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn.upgrade {
+  background: linear-gradient(135deg, #8060c0, #6040a0);
+  color: #fff;
+}
+
+.action-btn.play {
+  background: linear-gradient(135deg, #40a060, #208040);
+  color: #fff;
+}
+
+.action-btn.pass {
+  background: #303050;
+  color: var(--text-sub);
+}
+
+.action-btn.end-turn {
+  background: linear-gradient(135deg, #c08040, #a06020);
+  color: #fff;
+}
+
+.action-btn.skip {
+  background: #202030;
+  color: var(--text-muted);
+}
+
+.action-btn.surrender {
+  background: #302020;
+  color: #e06060;
+  font-size: 12px;
+  padding: 8px;
+}
+
+.action-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* 手牌区 */
+.hand-panel {
+  padding: 10px 16px;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-panel);
+}
+
+.hand-label {
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hand-overflow {
+  color: #e74c3c;
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.5; }
+}
+
+.hand-cards {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.hand-card {
+  flex-shrink: 0;
+  width: 90px;
+  height: 135px;
+  padding: 6px 8px;
+  background: var(--bg-page);
+  border: 1px solid var(--border-panel);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hand-card:hover {
+  border-color: #6060a0;
+  transform: translateY(-2px);
+}
+
+.hand-card.selected {
+  border-color: var(--border-active);
+  background: var(--bg-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(64, 64, 192, 0.3);
+}
+
+.hand-card.unaffordable {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hand-card.tech {
+  border-color: #6040a0;
+}
+
+.card-cost {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e0c080;
+  color: #0f0f1a;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-type-icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.card-name {
+  font-size: 12px;
+  font-weight: bold;
+  color: #c0c0ff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-tech-level {
+  font-size: 10px;
+  color: #c080ff;
+  font-weight: bold;
+}
+
+.card-desc {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+/* 弃牌覆盖层 */
+.discard-overlay {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.discard-card {
+  background: var(--bg-panel);
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px solid #e0c080;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.discard-card h2 {
+  color: var(--text-gold);
+  margin-bottom: 4px;
+}
+
+.discard-hint {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.discard-list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.discard-item {
+  padding: 10px 14px;
+  background: var(--bg-page);
+  border: 1px solid var(--border-panel);
+  border-radius: 6px;
+  margin: 4px 0;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+
+.discard-item:hover {
+  border-color: #e0c080;
+  background: #202030;
+}
+
+.discard-item-name {
+  font-weight: bold;
+  color: #c0c0ff;
+}
+
+.discard-item-info {
+  display: flex;
+  gap: 12px;
+  margin: 4px 0;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.discard-item-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* 游戏结束 */
+.gameover-overlay {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.gameover-card {
+  text-align: center;
+  padding: 40px;
+  max-width: 500px;
+  border-radius: 16px;
+}
+
+/* ================================================
+   浅色主题（全面覆盖）
+   ================================================ */
+body.theme-light {
+  background: #f0f2f5; color: #222;
+}
+body.theme-light .app { background: #f0f2f5; }
+
+/* 菜单 */
+body.theme-light .menu-container { background: #fff; border-color: #d0d5e0; }
+body.theme-light .menu-title { color: #333; }
+body.theme-light .menu-subtitle { color: #555; }
+body.theme-light .menu-desc { color: #666; }
+body.theme-light .menu-input { background: #f5f5f5; border-color: #ccc; color: #222; }
+body.theme-light .menu-option { background: #e8e8e8; border-color: #ccc; color: #555; }
+body.theme-light .menu-option.selected { background: #d0d0ff; border-color: #6060c0; color: #3030a0; }
+
+/* 游戏主屏 */
+body.theme-light .game-screen { background: #f0f2f5; }
+body.theme-light .turn-info { background: #fff; border-color: #d0d5e0; }
+body.theme-light .turn-number { color: #c08000; }
+body.theme-light .turn-phase { color: #666; }
+body.theme-light .turn-player { color: #444; }
+body.theme-light .turn-event { background: #f0e8ff; border-color: #c0a0e0; color: #6040a0; }
+
+/* 手牌 */
+body.theme-light .hand-panel { background: #fff; border-color: #d0d5e0; }
+body.theme-light .hand-label { color: #555; }
+body.theme-light .hand-card { background: #f5f6fa; border-color: #d0d5e0; color: #333; }
+body.theme-light .hand-card:hover { border-color: #6060c0; background: #e8e8ff; }
+body.theme-light .hand-card.selected { border-color: #4040c0; background: #d8d8ff; }
+body.theme-light .hand-card.unaffordable { opacity: 0.5; }
+body.theme-light .card-cost { background: #e0e0ff; color: #4040c0; }
+body.theme-light .card-type-icon { color: #666; }
+body.theme-light .card-name { color: #333; }
+body.theme-light .card-desc { color: #666; }
+body.theme-light .card-tech-level { color: #8050c0; }
+
+/* 资源面板 */
+body.theme-light .resource-panel { background: #fff; border-color: #d0d5e0; }
+body.theme-light .resource-label { color: #555; }
+body.theme-light .resource-value { color: #333; }
+body.theme-light .resource-value.danger { color: #c0392b; }
+body.theme-light .resource-value.warning { color: #d35400; }
+body.theme-light .resource-value.safe { color: #27ae60; }
+body.theme-light .resource-value.shield { color: #2980b9; }
+body.theme-light .resource-bar { background: #e8e8e8; }
+
+/* 按钮 */
+body.theme-light .action-btn { color: #333; }
+body.theme-light .action-btn.end-turn { background: #e0ffe0; border-color: #40a040; color: #207020; }
+body.theme-light .action-btn.end-turn:hover { background: #d0ffd0; }
+body.theme-light .action-btn.upgrade { background: #e8e0ff; border-color: #8060c0; color: #5030a0; }
+body.theme-light .action-btn.surrender { background: #ffe0e0; border-color: #c06060; color: #a03030; }
+
+/* 弃牌 */
+body.theme-light .discard-overlay { background: rgba(240,242,245,0.92); }
+body.theme-light .discard-card { background: #fff; border-color: #d0d5e0; color: #333; }
+body.theme-light .discard-item { background: #f5f6fa; border-color: #d0d5e0; color: #333; }
+body.theme-light .discard-item:hover { background: #ffe8e8; border-color: #c06060; }
+
+/* 游戏结束 */
+body.theme-light .gameover-overlay { background: rgba(240,242,245,0.92); }
+body.theme-light .gameover-card { background: #fff; border-color: #d0d5e0; color: #333; }
+body.theme-light .gameover-card.win { background: #e0ffe0; border-color: #40a060; }
+body.theme-light .gameover-card.lose { background: #ffe0e0; border-color: #c04040; }
+body.theme-light .gameover-player { background: #f5f6fa; border-color: #d0d5e0; }
+
+/* Canvas 棋盘在浅色模式 */
+body.theme-light canvas { background: #e8ecf0 !important; }
+
+/* ================================================
+   CSS 变量 → 浅色覆盖（替代内联样式颜色）
+   ================================================ */
+:root, body.theme-dark {
+  --bg-panel: #1a1a30;
+  --bg-panel2: #111122;
+  --bg-panel3: #0f0f1a;
+  --border-panel: #303050;
+  --text-primary: #c0c0ff;
+  --text-sub: #8080c0;
+  --text-muted: #606080;
+}
+body.theme-light {
+  --bg-panel: #fff;
+  --bg-panel2: #f5f6fa;
+  --bg-panel3: #f0f2f5;
+  --border-panel: #d0d5e0;
+  --text-primary: #333;
+  --text-sub: #555;
+  --text-muted: #888;
+}
+
+.gameover-card.win {
+  background: #1a3020;
+  border: 2px solid #40a060;
+}
+
+.gameover-card.lose {
+  background: #301a1a;
+  border: 2px solid #a04040;
+}
+
+.gameover-icon {
+  font-size: 64px;
+  margin-bottom: 12px;
+}
+
+.gameover-title {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.gameover-card.win .gameover-title { color: #40c060; }
+.gameover-card.lose .gameover-title { color: #c04040; }
+
+.gameover-subtitle {
+  color: #808080;
+  margin-bottom: 20px;
+}
+
+.gameover-stats {
+  margin-bottom: 16px;
+  color: var(--text-sub);
+}
+
+.gameover-players {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.gameover-player {
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--bg-page);
+  border-radius: 6px;
+  font-size: 13px;
+  justify-content: center;
+}
+
+.gameover-player.alive { color: #e0e0e0; }
+.gameover-player.dead { color: #606080; text-decoration: line-through; }
+
+.gameover-btn {
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #4060c0, #6040a0);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gameover-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(64, 96, 192, 0.4);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}

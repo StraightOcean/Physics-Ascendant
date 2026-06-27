@@ -1,0 +1,25 @@
+{
+  "name": "physics-ascendant",
+  "version": "2.0.0",
+  "private": true,
+  "description": "物理法则之下：科技死斗",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --prefix packages/client",
+    "dev:all": "concurrently \"npm run server\" \"npm run dev\"",
+    "server": "cd packages/server && npx tsx src/index.ts",
+    "build": "npm run build --prefix packages/client",
+    "electron": "npm run electron --prefix packages/client",
+    "play": "npx tsx packages/cli/src/index.ts",
+    "cli": "npx tsx packages/cli/src/index.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "tsx": "^4.7.0"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

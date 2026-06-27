@@ -1,0 +1,122 @@
+{
+  "id": "neutron-star-nexus",
+  "name": "中子星枢纽",
+  "version": "1.0.0",
+  "engineVersion": "0.1.0",
+  "author": "Physics Ascendant Community",
+  "description": "探索中子星极端物理环境下的新科技与挑战。新增 6 张中子星主题科技卡牌、1 个新宇宙骰子事件。",
+  "cards": [
+    {
+      "id": "neutron_decay",
+      "name": "中子衰变",
+      "type": "科技",
+      "cost": 5,
+      "level": 5,
+      "isUpgradeReward": false,
+      "description": "移除己方一个粒子（能量+3），对手熵值+2。中子自由了。",
+      "quantity": 2,
+      "effects": [
+        { "type": "remove_particle", "player": "self", "pos": { "row": 0, "col": 0 }, "energyReward": 3 },
+        { "type": "gain_entropy", "target": "opponent", "amount": 2 }
+      ],
+      "addToTechDeckLevel": 5
+    },
+    {
+      "id": "pulsar_beam",
+      "name": "脉冲星射线",
+      "type": "科技",
+      "cost": 6,
+      "level": 5,
+      "isUpgradeReward": false,
+      "description": "所有对手各+1熵值，你抽取2张牌。精准脉冲横扫战场。",
+      "quantity": 2,
+      "effects": [
+        { "type": "gain_entropy", "target": "all_others", "amount": 1 },
+        { "type": "draw_cards", "source": "main", "count": 2 }
+      ],
+      "addToTechDeckLevel": 5
+    },
+    {
+      "id": "gravitational_collapse",
+      "name": "引力坍缩",
+      "type": "科技",
+      "cost": 7,
+      "level": 5,
+      "isUpgradeReward": false,
+      "description": "移除己方2个粒子并将2个对手粒子转化为反粒子。质量坍缩引发链式反转。",
+      "quantity": 2,
+      "effects": [
+        { "type": "remove_particle", "player": "self", "pos": { "row": 0, "col": 0 }, "energyReward": 2 },
+        { "type": "remove_particle", "player": "self", "pos": { "row": 0, "col": 1 }, "energyReward": 2 },
+        { "type": "transform_particle", "player": "opponent", "pos": { "row": 0, "col": 0 }, "from": "any_regular", "to": "its_antimatter" },
+        { "type": "transform_particle", "player": "opponent", "pos": { "row": 0, "col": 1 }, "from": "any_regular", "to": "its_antimatter" }
+      ],
+      "addToTechDeckLevel": 5
+    },
+    {
+      "id": "magnetar_burst",
+      "name": "磁星爆发",
+      "type": "科技",
+      "cost": 8,
+      "level": 6,
+      "isUpgradeReward": false,
+      "description": "所有对手熵值+2，你获得3点护盾。宇宙最强磁场释放。",
+      "quantity": 2,
+      "effects": [
+        { "type": "gain_entropy", "target": "all_others", "amount": 2 },
+        { "type": "gain_shield", "amount": 3 }
+      ],
+      "addToTechDeckLevel": 6
+    },
+    {
+      "id": "neutron_star_core",
+      "name": "中子星核心",
+      "type": "科技",
+      "cost": 9,
+      "level": 6,
+      "isUpgradeReward": false,
+      "description": "熵值-3，能量上限+2，抽取3张牌。汲取致密核心的终极能量。",
+      "quantity": 2,
+      "effects": [
+        { "type": "reduce_entropy", "amount": 3 },
+        { "type": "increase_max_entropy", "amount": 2 },
+        { "type": "draw_cards", "source": "main", "count": 3 }
+      ],
+      "addToTechDeckLevel": 6
+    },
+    {
+      "id": "quark_gluon_plasma",
+      "name": "夸克-胶子等离子体",
+      "type": "科技",
+      "cost": 8,
+      "level": 6,
+      "isUpgradeReward": true,
+      "description": "【升级即得】在场上的空格生成2个夸克(Q)并减少1点熵值。物质的最原始形态。",
+      "quantity": 2,
+      "effects": [
+        { "type": "spawn_particle", "player": "self", "pos": "empty_slot", "particle": "Q" },
+        { "type": "spawn_particle", "player": "self", "pos": "empty_slot", "particle": "Q" },
+        { "type": "reduce_entropy", "amount": 1 }
+      ],
+      "addToTechDeckLevel": 6
+    }
+  ],
+  "effectTypes": [
+    {
+      "type": "neutron_decay",
+      "paramsSchema": { "targetPos": "目标位置 GridPos" },
+      "description": "移除粒子获取能量并对敌人造成熵增"
+    }
+  ],
+  "cosmicEvents": [
+    {
+      "id": 7,
+      "name": "中子星碰撞",
+      "description": "所有玩家熵值+1，但各抽取2张牌作为补偿",
+      "effects": [
+        {"type":"gain_entropy","target":"all","amount":1},
+        {"type":"draw_cards","source":"main","count":2}
+      ] 
+    }
+  ]
+}

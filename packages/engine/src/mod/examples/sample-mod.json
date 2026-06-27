@@ -1,0 +1,56 @@
+{
+  "id": "sample-mod-particle-nexus",
+  "name": "粒子枢纽 - 示例扩展包",
+  "version": "1.0.0",
+  "engineVersion": "0.1.0",
+  "author": "Physics Ascendant Team",
+  "description": "示例 MOD，展示如何创建自定义卡牌扩展包",
+  "cards": [
+    {
+      "id": "particle_beam",
+      "name": "粒子射线",
+      "type": "攻击",
+      "cost": 3,
+      "level": 2,
+      "isUpgradeReward": false,
+      "description": "移除对手场上1个粒子，对手熵值+2。",
+      "quantity": 2,
+      "effects": [
+        { "type": "remove_particle", "player": "opponent", "pos": { "row": 0, "col": 0 } },
+        { "type": "gain_entropy", "target": "opponent", "amount": 2 }
+      ],
+      "addToTechDeckLevel": 2
+    },
+    {
+      "id": "void_shift",
+      "name": "虚空位移",
+      "type": "位移",
+      "cost": 2,
+      "level": 3,
+      "isUpgradeReward": false,
+      "description": "将己方1个粒子移动到任意空格（无视距离）。",
+      "quantity": 2,
+      "effects": [
+        { "type": "placeholder", "cardId": "void_shift" }
+      ],
+      "addToTechDeckLevel": 3
+    }
+  ],
+  "effectTypes": [
+    {
+      "type": "particle_beam",
+      "paramsSchema": {
+        "targetPos": "目标位置 GridPos",
+        "particleType": "目标粒子类型 ParticleType"
+      },
+      "description": "发射粒子射线移除目标粒子并造成熵增"
+    }
+  ],
+  "cosmicEvents": [
+    {
+      "id": 7,
+      "name": "时空涟漪",
+      "description": "回退1回合的熵值变化"
+    }
+  ]
+}
