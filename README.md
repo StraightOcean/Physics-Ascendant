@@ -169,6 +169,11 @@ MIT License — 详见 [`LICENSE`](./LICENSE)
 
 ---
 
+## 创意工坊
+
+API文档 - 详见[`MOD_API`](./packages/engine/MOD_API.md)
+GitHub链接：https://github.com/StraightOcean/Physics-Ascendant-WorkStation
+
 <p align="center">
   <sub>Built with TypeScript · React · Vite · Electron · WebSocket · Cloudflare Workers</sub>
 </p>
